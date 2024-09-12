@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script>
+        async function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch('/api/auth/token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                // Handle the tokens here (e.g., store them in localStorage or sessionStorage)
+                console.log('Access Token:', data.access_token);
+                console.log('Refresh Token:', data.refresh_token);
+                alert('Login successful!');
+                // Redirect to another page or update the UI
+                window.location.href = '/dashboard';  // Example redirect
+            } else {
+                const error = await response.json();
+                console.error('Login failed:', error.error);
+                alert('Login failed: ' + error.error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Login</h1>
+    <form onsubmit="event.preventDefault(); login();">
+        <label for="username">Username:</label>
+        <input type="text" id="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
