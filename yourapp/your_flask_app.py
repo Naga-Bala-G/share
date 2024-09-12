@@ -5,9 +5,9 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with a secure secret key for session management
 
 # Keycloak configuration
-KEYCLOAK_URL = "http://localhost:8080/realms/myrealm/protocol/openid-connect"
-CLIENT_ID = "myclient"
-CLIENT_SECRET = "UKbpq0cFGgUZukFVXIa3UXbsVh9RqyfD"
+KEYCLOAK_URL = "http://localhost:8080/realms/centific/protocol/openid-connect"
+CLIENT_ID = "Balu"
+CLIENT_SECRET = "wk0rxCD075nUWStD2JsXF3L4AkWyEkQL"
 
 @app.route('/api/auth/token', methods=['POST'])
 def get_token():
@@ -79,7 +79,7 @@ def dashboard():
     username = session.get('username')
     if not username:
         return redirect(url_for('serve_login_page'))
-    return f"<h1>Welcome {username} to your dashboard!</h1><p>You have successfully logged in.</p><a href='/logout'>Logout</a>"
+    return f"<h1>Hello, {username}!</h1><p>You have successfully logged in.</p><a href='/logout'>Logout</a>"
 
 @app.route('/logout')
 def logout_page():
